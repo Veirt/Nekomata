@@ -2,16 +2,17 @@ import discord
 import os
 import shutil
 import urllib.request
-from config import token
+from config import *
 from hasher import sha1
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 client = commands.Bot(command_prefix= '.')
 
 print("Bot is ready!")
 
-@client.command()
-async def check(ctx):
+@tasks.loop(seconds = 5.0)
+async def Check_Loop():
+    message_channel = client.get_channel(target_channel_id)
     filename = 'PatchInfoServer.cfg'
     # download file
     url = 'http://10.6.11.11/Patch/PatchInfoServer.cfg'
@@ -28,13 +29,20 @@ async def check(ctx):
         f2 = open("PatchInfoServer.cfg", "r")
         latestVer = f.read()
         newVer = f2.read()
-        await ctx.send("{} to {}".format(latestVer, newVer))
+        await message_channel.send("Mogu mogu! {} to {}".format(latestVer, newVer))
         f.close()
         f2.close()
         shutil.move('PatchInfoServer.cfg', 'latest/PatchInfoServer.cfg')
     else:
-        print("There is no update")
         pass
-    
 
+
+@Check_Loop.before_loop
+async def before():
+    await client.wait_until_ready()
+    message_channel = client.get_channel(target_channel_id)
+
+
+
+Check_Loop.start()
 client.run(token)
