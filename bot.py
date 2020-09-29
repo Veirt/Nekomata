@@ -1,14 +1,18 @@
 import discord
 import os
+import datetime
 import shutil
 import urllib.request
 from config import *
 from hasher import sha1
 from discord.ext import commands, tasks
 
-client = commands.Bot(command_prefix= '.')
-
-print("Bot is ready!")
+client = commands.Bot(command_prefix= 'mogu ')
+now = datetime.datetime.now()
+@client.event
+async def on_ready():
+    await client.change_presence(activity=discord.Game("mogu mogu!"))
+    print("{} has logged in.".format(client.user))
 
 @tasks.loop(seconds = 5.0)
 async def Check_Loop():
@@ -19,7 +23,7 @@ async def Check_Loop():
     urllib.request.urlretrieve(url, filename)
 
     # get hashes
-    hash_latest = sha1('latest/PatchInfoServer.cfg')
+    hash_latest =sha1('latest/PatchInfoServer.cfg')
     hash_new = sha1(filename)
 
     # compare hashes
@@ -29,7 +33,9 @@ async def Check_Loop():
         f2 = open("PatchInfoServer.cfg", "r")
         latestVer = f.read()
         newVer = f2.read()
-        await message_channel.send("Mogu mogu! {} to {}".format(latestVer, newVer))
+        embed = discord.Embed(title = "Update Notice", description = "Mogu mogu! Miku DN has patched from {} to {} ".format(latestVer, newVer), colour = discord.Colour.blue())
+        embed.set_footer(text="{}-{}-{}".format(now.year,now.month,now.day))
+        await message_channel.send(embed=embed)
         f.close()
         f2.close()
         shutil.move('PatchInfoServer.cfg', 'latest/PatchInfoServer.cfg')
@@ -42,7 +48,15 @@ async def before():
     await client.wait_until_ready()
     message_channel = client.get_channel(target_channel_id)
 
+@client.command()
+async def mogu(ctx):
+    await ctx.send("okayu!")
 
+@client.command()
+async def check(ctx):
+    f = open("latest/PatchInfoServer.cfg", "r")
+    await ctx.send(f.read())
+    f.close()
 
 Check_Loop.start()
 client.run(token)
