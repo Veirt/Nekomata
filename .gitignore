@@ -276,7 +276,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # Config
-config.py
 bot2.py
 
 #VirtualEnv
