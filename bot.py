@@ -7,7 +7,12 @@ from config import *
 from hasher import sha1
 from discord.ext import commands, tasks
 
-client = commands.Bot(command_prefix= 'mogu ')
+""" prefix = os.getenv('PREFIX')
+channel_id = os.getenv('CHANNEL')
+token = os.getenv('TOKEN') """
+
+
+client = commands.Bot(prefix)
 now = datetime.datetime.now()
 @client.event
 async def on_ready():
@@ -16,7 +21,7 @@ async def on_ready():
 
 @tasks.loop(seconds = 5.0)
 async def Check_Loop():
-    message_channel = client.get_channel(target_channel_id)
+    message_channel = client.get_channel(channel_id)
     filename = 'PatchInfoServer.cfg'
     # download file
     url = 'http://10.6.11.11/Patch/PatchInfoServer.cfg'
@@ -46,7 +51,7 @@ async def Check_Loop():
 @Check_Loop.before_loop
 async def before():
     await client.wait_until_ready()
-    message_channel = client.get_channel(target_channel_id)
+    message_channel = client.get_channel(channel_id)
 
 @client.command()
 async def mogu(ctx):
