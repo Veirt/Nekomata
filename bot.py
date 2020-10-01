@@ -3,12 +3,15 @@ import os
 import datetime
 import shutil
 import urllib.request
-from config import *
 from hasher import sha1
 from discord.ext import commands, tasks
 
+#Virtual Environment
+token = os.getenv('TOKEN')
+channel_id = int(os.getenv('CHANNEL'))
 
-client = commands.Bot(prefix)
+
+client = commands.Bot("mogu ")
 now = datetime.datetime.now()
 @client.event
 async def on_ready():
@@ -34,14 +37,12 @@ async def Check_Loop():
         f2 = open("PatchInfoServer.cfg", "r")
         latestVer = f.read()
         newVer = f2.read()
-        embed = discord.Embed(title = "Update Notice", description = "Mogu mogu! Miku DN has patched from {} to {} ".format(latestVer, newVer), colour = discord.Colour.blue())
+        embed = discord.Embed(title = "Update Notice", description = "Mogu mogu! Patched from {} to {} ".format(latestVer, newVer), colour = discord.Colour.blue())
         embed.set_footer(text="{}-{}-{}".format(now.year,now.month,now.day))
         await message_channel.send(embed=embed)
         f.close()
         f2.close()
         shutil.move('PatchInfoServer.cfg', 'latest/PatchInfoServer.cfg')
-    else:
-        pass
 
 
 @Check_Loop.before_loop
