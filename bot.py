@@ -7,10 +7,6 @@ from config import *
 from hasher import sha1
 from discord.ext import commands, tasks
 
-""" prefix = os.getenv('PREFIX')
-channel_id = os.getenv('CHANNEL')
-token = os.getenv('TOKEN') """
-
 
 client = commands.Bot(prefix)
 now = datetime.datetime.now()
