@@ -37,7 +37,7 @@ async def Check_Loop():
         f2 = open("PatchInfoServer.cfg", "r")
         latestVer = f.read()
         newVer = f2.read()
-        embed = discord.Embed(title = "Update Notice", description = "Mogu mogu! Patched from {} to {} ".format(latestVer, newVer), colour = discord.Colour(0xe5d1ed))
+        embed = discord.Embed(title = "Update Notice", description = "Mogu mogu! Patched from {} to {} ".format(latestVer[-3:], newVer[-3:]), colour = discord.Colour(0xe5d1ed))
         embed.set_footer(text="{}-{}-{}".format(now.year,now.month,now.day))
         await message_channel.send(embed=embed)
         f.close()
