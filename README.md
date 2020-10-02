@@ -5,3 +5,9 @@
 ```
 pipenv install
 ```
+
+## Run Bot
+
+```
+pipenv run dev
+```

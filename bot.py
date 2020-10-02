@@ -1,13 +1,13 @@
 import discord
-import os
 import datetime
-import shutil
 import urllib.request
 from discord.ext import commands, tasks
+from shutil import move
+from os import getenv
 
 #Virtual Environment
-token = os.getenv('TOKEN')
-channel_id = int(os.getenv('CHANNEL'))
+token = getenv('TOKEN')
+channel_id = int(getenv('CHANNEL'))
 
 
 client = commands.Bot("mogu ")
@@ -28,21 +28,21 @@ async def Check_Loop():
     url = 'http://10.6.11.11/Patch/PatchInfoServer.cfg'
     file = urllib.request.urlopen(url)
     for line in file:
-        version_now = line.decode("utf-8")
+        newVer = line.decode("utf-8")
     
     f = open("latest/PatchInfoServer.cfg", "r")
     latestVer = f.read()
-    if version_now != latestVer:
+    if newVer != latestVer:
         urllib.request.urlretrieve(url, filename)
         print("There is an update")
-        f2 = open("PatchInfoServer.cfg", "r")
-        newVer = f2.read()
+        """ f2 = open("PatchInfoServer.cfg", "r")
+        newVer = f2.read() """
         embed = discord.Embed(title = "Update Notice", description = "Mogu mogu! Patched from {} to {} ".format(latestVer[-3:], newVer[-3:]), colour = discord.Colour(0xe5d1ed))
         embed.set_footer(text="{}-{}-{}".format(now.year,now.month,now.day))
         await message_channel.send(embed=embed)
         f.close()
-        f2.close()
-        shutil.move('PatchInfoServer.cfg', 'latest/PatchInfoServer.cfg')
+        """ f2.close() """
+        move('PatchInfoServer.cfg', 'latest/PatchInfoServer.cfg')
 
 
 @Check_Loop.before_loop
