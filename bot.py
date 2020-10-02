@@ -3,7 +3,6 @@ import os
 import datetime
 import shutil
 import urllib.request
-from hasher import sha1
 from discord.ext import commands, tasks
 
 #Virtual Environment
@@ -13,29 +12,30 @@ channel_id = int(os.getenv('CHANNEL'))
 
 client = commands.Bot("mogu ")
 now = datetime.datetime.now()
+
+
 @client.event
 async def on_ready():
     await client.change_presence(activity=discord.Game("mogu mogu!"))
     print("{} has logged in.".format(client.user))
 
+
 @tasks.loop(seconds = 5.0)
 async def Check_Loop():
     message_channel = client.get_channel(channel_id)
     filename = 'PatchInfoServer.cfg'
-    # download file
+    # Get vesion from URL
     url = 'http://10.6.11.11/Patch/PatchInfoServer.cfg'
-    urllib.request.urlretrieve(url, filename)
-
-    # get hashes
-    hash_latest =sha1('latest/PatchInfoServer.cfg')
-    hash_new = sha1(filename)
-
-    # compare hashes
-    if hash_latest != hash_new:
+    file = urllib.request.urlopen(url)
+    for line in file:
+        version_now = line.decode("utf-8")
+    
+    f = open("latest/PatchInfoServer.cfg", "r")
+    latestVer = f.read()
+    if version_now != latestVer:
+        urllib.request.urlretrieve(url, filename)
         print("There is an update")
-        f = open("latest/PatchInfoServer.cfg", "r")
         f2 = open("PatchInfoServer.cfg", "r")
-        latestVer = f.read()
         newVer = f2.read()
         embed = discord.Embed(title = "Update Notice", description = "Mogu mogu! Patched from {} to {} ".format(latestVer[-3:], newVer[-3:]), colour = discord.Colour(0xe5d1ed))
         embed.set_footer(text="{}-{}-{}".format(now.year,now.month,now.day))
@@ -59,6 +59,7 @@ async def check(ctx):
     f = open("latest/PatchInfoServer.cfg", "r")
     await ctx.send(f.read())
     f.close()
+
 
 Check_Loop.start()
 client.run(token)
