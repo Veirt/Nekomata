@@ -2,7 +2,6 @@
 
 ## Requirements
 
-- discord.py
 - Pipenv
 
 ## Install Virtual Environment
