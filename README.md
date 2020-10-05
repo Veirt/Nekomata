@@ -1,5 +1,10 @@
 # Version Check Bot
 
+## Requirements
+
+- discord.py
+- Pipenv
+
 ## Install Virtual Environment
 
 ```

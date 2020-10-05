@@ -1,14 +1,34 @@
 import discord
 import datetime
 import urllib.request
-from command import *
+import os
 from config import *
 from discord.ext import commands, tasks
 from shutil import move
 from os import getenv
 
+# Get time
 now = datetime.datetime.now()
 
+# Virtual Environment
+token = getenv('TOKEN')
+channel_id = int(getenv('CHANNEL'))
+
+client = commands.Bot("mogu ")
+
+@client.command()
+async def load(ctx, extension):
+    client.load_extension(f"cogs.{extension}")
+
+
+@client.command()
+async def unload(ctx, extension):
+    client.unload_extension(f"cogs.{extension}")
+
+
+for ext in os.listdir("cogs/"):
+    if ext.endswith(".py"):
+        client.load_extension(f"cogs.{ext[:-3]}")
 
 @client.event
 async def on_ready():
