@@ -17,6 +17,21 @@ class Commands(commands.Cog):
         await ctx.send(f.read())
         f.close()
 
+    @commands.command()
+    @commands.has_permissions(manage_messages=True)
+    async def clear(self, ctx, amount : int):
+        await ctx.channel.purge(limit = amount)
+
+    @commands.Cog.listener()
+    async def on_command_error(ctx, error):
+        if isinstance(error, commands.MissingPermissions):
+            await ctx.send("You don't have permission to do the command!")
+
+    @clear.error
+    async def clear_error(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("Please specify an amount of messages to delete.")
+
 
 def setup(client):
     client.add_cog(Commands(client))

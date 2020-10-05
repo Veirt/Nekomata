@@ -14,21 +14,23 @@ now = datetime.datetime.now()
 token = getenv('TOKEN')
 channel_id = int(getenv('CHANNEL'))
 
+# Prefix
 client = commands.Bot("mogu ")
 
+
+# Load cogs
 @client.command()
 async def load(ctx, extension):
     client.load_extension(f"cogs.{extension}")
-
 
 @client.command()
 async def unload(ctx, extension):
     client.unload_extension(f"cogs.{extension}")
 
-
 for ext in os.listdir("cogs/"):
     if ext.endswith(".py"):
         client.load_extension(f"cogs.{ext[:-3]}")
+
 
 @client.event
 async def on_ready():
@@ -39,7 +41,7 @@ async def on_ready():
 @tasks.loop(seconds = 5.0)
 async def Check_Loop():
     message_channel = client.get_channel(channel_id)
-    # Get vesion from URL
+    # Get version from URL
     file = urllib.request.urlopen(url[0])
     for x in file:
         newVer = x.decode("utf-8")
