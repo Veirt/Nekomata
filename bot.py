@@ -1,14 +1,5 @@
-import discord
-import datetime
-import urllib.request
-import os
-from config import *
-from discord.ext import commands, tasks
-from shutil import move
-from os import getenv
-
-# Get time
-now = datetime.datetime.now()
+# Import packages
+from packages import *
 
 # Virtual Environment
 token = getenv('TOKEN')
@@ -18,14 +9,15 @@ channel_id = int(getenv('CHANNEL'))
 client = commands.Bot("mogu ")
 
 
-# Load cogs
+""" # Load cogs
 @client.command()
 async def load(ctx, extension):
     client.load_extension(f"cogs.{extension}")
 
 @client.command()
 async def unload(ctx, extension):
-    client.unload_extension(f"cogs.{extension}")
+    client.unload_extension(f"cogs.{extension}") """
+
 
 for ext in os.listdir("cogs/"):
     if ext.endswith(".py"):
@@ -64,7 +56,6 @@ async def Check_Loop():
 @Check_Loop.before_loop
 async def before():
     await client.wait_until_ready()
-    message_channel = client.get_channel(channel_id)
 
 
 Check_Loop.start()
