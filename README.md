@@ -2,6 +2,8 @@
 
 ## Requirements
 
+- Node.js
+- nodemon
 - Pipenv
 
 ## Install Virtual Environment
