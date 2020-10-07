@@ -2,3 +2,5 @@
 .env
 __pycache__/
 GUI.py
+latest/PatchInfoServer.cfg
+version.db
