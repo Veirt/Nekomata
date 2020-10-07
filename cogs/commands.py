@@ -1,15 +1,13 @@
-import discord
 from discord.ext import commands
+
 
 class Commands(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-
     @commands.command()
     async def mogu(self, ctx):
         await ctx.send("okayu!")
-
 
     @commands.command()
     async def check(self, ctx):
@@ -18,12 +16,16 @@ class Commands(commands.Cog):
         f.close()
 
     @commands.command()
+    async def who(self, ctx):
+        await ctx.send("You are {}".format(ctx.message.author))
+
+    @commands.command()
     @commands.has_permissions(manage_messages=True)
-    async def clear(self, ctx, amount : int):
-        await ctx.channel.purge(limit = amount)
+    async def clear(self, ctx, amount: int):
+        await ctx.channel.purge(limit=amount)
 
     @commands.Cog.listener()
-    async def on_command_error(ctx, error):
+    async def on_command_error(self, ctx, error):
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("You don't have permission to do the command!")
 
