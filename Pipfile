@@ -13,4 +13,4 @@ python_version = "3.8"
 
 [scripts]
 
-dev = "nodemon --exec bot.py"
+dev = "nodemon --exec python bot.py"
