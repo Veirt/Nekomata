@@ -10,7 +10,7 @@ class CheckVer(commands.Cog):
         self.Check_Loop.start()
 
 
-    @tasks.loop(seconds=5.0)
+    @tasks.loop(hours=10.0)
     async def Check_Loop(self):
         global newVer
         message_channel = self.client.get_channel(channel_id)
