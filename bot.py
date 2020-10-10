@@ -1,13 +1,14 @@
 # Import packages
 from lib import *
-
+intents = discord.Intents.default()
+intents.members = True
 # Virtual Environment
 token = getenv('TOKEN')
 channel_id = int(getenv('CHANNEL'))
 prefix = getenv('PREFIX')
 
 # Prefix
-client = commands.Bot(prefix)
+client = commands.Bot(prefix, intents=intents)
 
 # Load Cogs
 startup_extension = ("cogs.commands", "cogs.events", "cogs.tasks")
