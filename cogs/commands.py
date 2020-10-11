@@ -37,4 +37,3 @@ class Commands(commands.Cog):
 
 def setup(client):
     client.add_cog(Commands(client))
-    

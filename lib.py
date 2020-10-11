@@ -1,13 +1,14 @@
 # Import necessary packages
-import discord
 import datetime
-import urllib.request
 import os
-import database
-from discord.ext import commands, tasks
-from shutil import move
+import urllib.request
 from os import getenv
+from shutil import move
 
+import discord
+from discord.ext import commands, tasks
+
+import database
 
 now = datetime.datetime.now()
 filename = ("PatchInfoServer.cfg",)

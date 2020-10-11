@@ -9,8 +9,7 @@ class CheckVer(commands.Cog):
         self.client = client
         self.Check_Loop.start()
 
-
-    @tasks.loop(seconds=5.0)
+    @tasks.loop(hours=10.0)
     async def Check_Loop(self):
         global newVer
         message_channel = self.client.get_channel(channel_id)
@@ -30,7 +29,8 @@ class CheckVer(commands.Cog):
                                   description=f"Mogu mogu! Patched from {latestVer[-3:]} to {newVer[-3:]} ",
                                   colour=discord.Colour(0xe5d1ed))
 
-            embed.set_footer(text="{}-{}-{}".format(now.year, now.month, now.day))
+            embed.set_footer(
+                text="{}-{}-{}".format(now.year, now.month, now.day))
             await message_channel.send(embed=embed)
             f.close()
             move('PatchInfoServer.cfg', 'latest/PatchInfoServer.cfg')

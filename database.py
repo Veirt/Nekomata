@@ -2,6 +2,7 @@ import sqlite3
 import datetime
 now = datetime.datetime.now()
 
+
 def query(newVer):
     # Databases
     conn = sqlite3.connect("version.db")
