@@ -2,8 +2,9 @@
 
 ## Requirements
 
+- Python 3.9
 - Node.js
-- nodemon
+- Nodemon
 - Pipenv
 
 ## Install Virtual Environment
