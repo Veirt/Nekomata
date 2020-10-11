@@ -26,7 +26,7 @@ class CheckVer(commands.Cog):
             urllib.request.urlretrieve(url[0], filename[0])
             print("There is an update")
             embed = discord.Embed(title="Update Notice",
-                                  description=f"Mogu mogu! Patched from {latestVer[-3:]} to {newVer[-3:]} ",
+                                  description=f"Mogu mogu! Patched from {latestVer[7:]} to {newVer[7:]} ",
                                   colour=discord.Colour(0xe5d1ed))
 
             embed.set_footer(
