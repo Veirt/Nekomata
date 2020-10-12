@@ -4,3 +4,4 @@ __pycache__/
 GUI.py
 latest/PatchInfoServer.cfg
 version.db
+.vscode/
