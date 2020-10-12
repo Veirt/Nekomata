@@ -9,33 +9,58 @@ class CheckVer(commands.Cog):
         self.client = client
         self.Check_Loop.start()
 
-    @tasks.loop(hours=10.0)
+    @tasks.loop(seconds=10.0)
     async def Check_Loop(self):
         global newVer
         message_channel = self.client.get_channel(channel_id)
-        # Get version from URL
-        file = urllib.request.urlopen(url[0])
-        for x in file:
-            newVer = x.decode("utf-8")
 
-        f = open("latest/PatchInfoServer.cfg", "r")
-        latestVer = f.read()
+        for i in urls_and_files.values():
+            url, file_name, server = i[0], i[1], i[2]
+            cfg = urllib.request.urlopen(url)
+            for x in cfg:
+                newVer = x.decode("utf-8")
 
-        if newVer != latestVer:
-            database.query(newVer)
-            urllib.request.urlretrieve(url[0], filename[0])
-            print("There is an update")
-            embed = discord.Embed(title="Update Notice",
-                                  description=f"Mogu mogu! Patched from {latestVer[7:]} to {newVer[7:]} ",
-                                  colour=discord.Colour(0xe5d1ed))
-
-            embed.set_footer(
-                text="{}-{}-{}".format(now.year, now.month, now.day))
-            await message_channel.send(embed=embed)
+            f = open(f"latest/{file_name}", "r")
+            latestVer = f.read()
             f.close()
-            move('PatchInfoServer.cfg', 'latest/PatchInfoServer.cfg')
+            if newVer != latestVer:
+                urllib.request.urlretrieve(url, file_name)
+                print("There is an update")
+                embed = discord.Embed(title="Update Notice",
+                                      description=f"Mogu mogu! {server} patched from {latestVer[7:]} to {newVer[7:]} ",
+                                      colour=discord.Colour(0xe5d1ed))
 
-        file.close()
+                embed.set_footer(
+                    text="{}-{}-{}".format(now.year, now.month, now.day))
+                await message_channel.send(embed=embed)
+                move(f"{file_name}", f"latest/{file_name}")
+
+            cfg.close()
+
+        # # Get version from URL
+        # for i in urls:
+        #     file = urllib.request.urlopen(urls[i])
+        #     for x in file:
+        #         newVer = x.decode("utf-8")
+        #
+        # f = open("latest/PatchInfoServer.cfg", "r")
+        # latestVer = f.read()
+        #
+        # if newVer != latestVer:
+        #     database.query(newVer)
+        #     urllib.request.urlretrieve(url['test'], filename['test'])
+        #     print("There is an update")
+        #     embed = discord.Embed(title="Update Notice",
+        #                           description=f"Mogu mogu! Patched from {latestVer[7:]} to {newVer[7:]} ",
+        #                           colour=discord.Colour(0xe5d1ed))
+        #
+        #     embed.set_footer(
+        #         text="{}-{}-{}".format(now.year, now.month, now.day))
+        #     await message_channel.send(embed=embed)
+        #     f.close()
+        #     move('PatchInfoServer.cfg', 'latest/PatchInfoServer.cfg')
+        #
+        # file.close()
 
     @Check_Loop.before_loop
     async def before(self):
