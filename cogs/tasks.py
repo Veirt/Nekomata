@@ -24,7 +24,7 @@ class CheckVer(commands.Cog):
             with open(f"latest/{file_name}", "r") as f:
                 latestVer = f.readline()
                 f.close()
-                latestVer = "".join(newVer)
+                latestVer = "".join(latestVer)
                 latestVer = latestVer.replace("\n", "")
 
             if newVer != latestVer:
