@@ -18,11 +18,14 @@ class CheckVer(commands.Cog):
             url, file_name, server = i[0], i[1], i[2]
             cfg = urllib.request.urlopen(url)
             for x in cfg:
-                newVer = x.decode("utf-8")
+                newVer = x.decode("utf-8").split()
+                newVer = " ".join(newVer)
 
-            f = open(f"latest/{file_name}", "r")
-            latestVer = f.read()
-            f.close()
+            with open(f"latest/{file_name}", "r") as f:
+                latestVer = f.readline()
+                f.close()
+                latestVer = "".join(newVer)
+
             if newVer != latestVer:
                 urllib.request.urlretrieve(url, file_name)
                 print("There is an update")
