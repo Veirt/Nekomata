@@ -5,3 +5,6 @@ GUI.py
 latest/PatchInfoServer.cfg
 version.db
 .vscode/
+
+# Test
+test.py

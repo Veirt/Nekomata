@@ -25,6 +25,7 @@ class CheckVer(commands.Cog):
                 latestVer = f.readline()
                 f.close()
                 latestVer = "".join(newVer)
+                latestVer = latestVer.replace("\n", "")
 
             if newVer != latestVer:
                 urllib.request.urlretrieve(url, file_name)
