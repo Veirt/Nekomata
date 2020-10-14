@@ -1,4 +1,5 @@
 # Import necessary packages
+import logging
 import datetime
 import os
 import urllib.request
@@ -8,6 +9,8 @@ from shutil import move
 import discord
 from discord.ext import commands, tasks
 
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    datefmt='%m/%d/%Y %H:%M:%S')
 
 now = datetime.datetime.now()
 urls_and_files = {

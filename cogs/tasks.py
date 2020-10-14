@@ -9,13 +9,16 @@ class CheckVer(commands.Cog):
         self.client = client
         self.Check_Loop.start()
 
-    @tasks.loop(seconds=10.0)
+    @tasks.loop(hours=1.0)
+    # Testing : seconds=15.0
+    # Run : hours=1.0
     async def Check_Loop(self):
         global newVer
         message_channel = self.client.get_channel(channel_id)
 
         for i in urls_and_files.values():
             url, file_name, server = i[0], i[1], i[2]
+            logging.debug(f"Checking {server}")
             cfg = urllib.request.urlopen(url)
             for x in cfg:
                 newVer = x.decode("utf-8").split()
