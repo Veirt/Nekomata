@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(leve
 
 now = datetime.datetime.now()
 urls_and_files = {
-    "test": ["http://127.0.0.1/Patch/PatchInfoServer.cfg", "PatchInfoServer.cfg", "Test"],
+    # "test": ["http://127.0.0.1/Patch/PatchInfoServer.cfg", "PatchInfoServer.cfg", "Test"],
     "sea": ["http://patchsea.dragonnest.com/Game/DragonNest/Patch/PatchInfoServer.cfg", "PatchInfoServer_SEA.cfg", "SEA"],
     "us": ["http://patchus.dragonnest.com/Game/DragonNest/patch/PatchInfoServer.cfg", "PatchInfoServer_US.cfg", "US"],
     "kr": ["http://res.dn.pupugame.com/Patch/PatchInfoServer.cfg", "PatchInfoServer_KR.cfg", "Korea"],
