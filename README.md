@@ -1,4 +1,6 @@
-# Version Check Bot
+# Nekomata
+
+This bot is inspired by Vahr's Divinitor Stargazer
 
 ## Requirements
 
