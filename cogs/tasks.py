@@ -17,7 +17,7 @@ class CheckVer(commands.Cog):
         message_channel = self.client.get_channel(channel_id)
 
         for i in urls_and_files.values():
-            url, file_name, server = i[0], i[1], i[2]
+            url, file_name, server = i
             logging.debug(f"Checking {server}")
             cfg = urllib.request.urlopen(url)
             for x in cfg:
