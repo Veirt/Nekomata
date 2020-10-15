@@ -1,3 +1,4 @@
+import os
 import datetime
 # import logging
 import urllib.request
@@ -13,6 +14,8 @@ from lib import *
 #                     datefmt='%m/%d/%Y %H:%M:%S')
 
 now = datetime.datetime.now()
+date = f"{now.year}-{now.month}-{now.day}"
+time = now.strftime("%X")
 
 
 class CheckVer(commands.Cog):
@@ -20,7 +23,7 @@ class CheckVer(commands.Cog):
         self.client = client
         self.Check_Loop.start()
 
-    @tasks.loop(seconds=10.0)
+    @tasks.loop(seconds=15.0)
     # Testing : seconds=15.0
     # Run : hours=1.0
     async def Check_Loop(self):
@@ -30,7 +33,7 @@ class CheckVer(commands.Cog):
         for i in urls_and_files.values():
             url, file_name, server = i
             # logging.debug(f"Checking {server}")
-            print(f"{now.year}-{now.month}-{now.day} Checking {server}")
+            print(f"{date} {time} Checking {server}")
             cfg = urllib.request.urlopen(url)
 
             # Use different way to US since US has unique version.cfg
@@ -52,11 +55,11 @@ class CheckVer(commands.Cog):
                                           description=f"Mogu mogu! {server} patched from {latestVer[8:]} to {newVer[8:]} ",
                                           colour=discord.Colour(0xe5d1ed))
 
-                    embed.set_footer(
-                        text="{}-{}-{}".format(now.year, now.month, now.day))
+                    embed.set_footer(text=date)
                     await message_channel.send(embed=embed)
                     move(f"{file_name}", f"latest/{file_name}")
-                cfg.close()
+                else:
+                    os.remove(file_name)
 
             else:
                 for x in cfg:
@@ -76,8 +79,7 @@ class CheckVer(commands.Cog):
                                           description=f"Mogu mogu! {server} patched from {latestVer[8:]} to {newVer[8:]} ",
                                           colour=discord.Colour(0xe5d1ed))
 
-                    embed.set_footer(
-                        text="{}-{}-{}".format(now.year, now.month, now.day))
+                    embed.set_footer(text=date)
                     await message_channel.send(embed=embed)
                     move(f"{file_name}", f"latest/{file_name}")
 
