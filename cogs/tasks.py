@@ -1,7 +1,17 @@
+import discord
 from lib import *
 from bot import *
-import discord
 from discord.ext import tasks
+import datetime
+# import logging
+import urllib.request
+from shutil import move
+
+# Log Configuration
+# logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+#                     datefmt='%m/%d/%Y %H:%M:%S')
+
+now = datetime.datetime.now()
 
 
 class CheckVer(commands.Cog):
@@ -9,7 +19,7 @@ class CheckVer(commands.Cog):
         self.client = client
         self.Check_Loop.start()
 
-    @tasks.loop(hours=1.0)
+    @tasks.loop(seconds=10.0)
     # Testing : seconds=15.0
     # Run : hours=1.0
     async def Check_Loop(self):
@@ -18,31 +28,59 @@ class CheckVer(commands.Cog):
 
         for i in urls_and_files.values():
             url, file_name, server = i
-            logging.debug(f"Checking {server}")
+            # logging.debug(f"Checking {server}")
+            print(f"Checking {server}")
             cfg = urllib.request.urlopen(url)
-            for x in cfg:
-                newVer = x.decode("utf-8").split()
-                newVer = " ".join(newVer)
 
-            with open(f"latest/{file_name}", "r") as f:
-                latestVer = f.readline()
-                f.close()
-                latestVer = "".join(latestVer)
-                latestVer = latestVer.replace("\n", "")
-
-            if newVer != latestVer:
+            # Use different way to US since US has unique version.cfg
+            if server == "US":
                 urllib.request.urlretrieve(url, file_name)
-                print("There is an update")
-                embed = discord.Embed(title="Update Notice",
-                                      description=f"Mogu mogu! {server} patched from {latestVer[7:]} to {newVer[7:]} ",
-                                      colour=discord.Colour(0xe5d1ed))
+                with open(file_name) as f:
+                    newVer = f.readline()
+                    newVer = newVer.replace("\n", "")
+                    f.close()
 
-                embed.set_footer(
-                    text="{}-{}-{}".format(now.year, now.month, now.day))
-                await message_channel.send(embed=embed)
-                move(f"{file_name}", f"latest/{file_name}")
+                with open(f"latest/{file_name}") as f:
+                    latestVer = f.readline()
+                    latestVer = latestVer.replace("\n", "")
+                    f.close()
 
-            cfg.close()
+                if newVer != latestVer:
+                    print("There is an update")
+                    embed = discord.Embed(title="Update Notice",
+                                          description=f"Mogu mogu! {server} patched from {latestVer[8:]} to {newVer[8:]} ",
+                                          colour=discord.Colour(0xe5d1ed))
+
+                    embed.set_footer(
+                        text="{}-{}-{}".format(now.year, now.month, now.day))
+                    await message_channel.send(embed=embed)
+                    move(f"{file_name}", f"latest/{file_name}")
+                cfg.close()
+
+            else:
+                for x in cfg:
+                    newVer = x.decode("utf-8").split()
+                    newVer = " ".join(newVer)
+
+                with open(f"latest/{file_name}", "r") as f:
+                    latestVer = f.readline()
+                    latestVer = "".join(latestVer)
+                    latestVer = latestVer.replace("\n", "")
+                    f.close()
+
+                if newVer != latestVer:
+                    urllib.request.urlretrieve(url, file_name)
+                    print("There is an update")
+                    embed = discord.Embed(title="Update Notice",
+                                          description=f"Mogu mogu! {server} patched from {latestVer[8:]} to {newVer[8:]} ",
+                                          colour=discord.Colour(0xe5d1ed))
+
+                    embed.set_footer(
+                        text="{}-{}-{}".format(now.year, now.month, now.day))
+                    await message_channel.send(embed=embed)
+                    move(f"{file_name}", f"latest/{file_name}")
+
+                cfg.close()
 
         # # Get version from URL
         # for i in urls:
