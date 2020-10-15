@@ -1,8 +1,8 @@
 import os
-import datetime
 # import logging
 import urllib.request
 from shutil import move
+import datetime
 
 import discord
 from bot import *
@@ -12,10 +12,6 @@ from lib import *
 # Log Configuration
 # logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
 #                     datefmt='%m/%d/%Y %H:%M:%S')
-
-now = datetime.datetime.now()
-date = f"{now.year}-{now.month}-{now.day}"
-time = now.strftime("%X")
 
 
 class CheckVer(commands.Cog):
@@ -33,6 +29,9 @@ class CheckVer(commands.Cog):
         for i in urls_and_files.values():
             url, file_name, server = i
             # logging.debug(f"Checking {server}")
+            # Get Time Now
+            date = datetime.date.today()
+            time = datetime.datetime.now().time()
             print(f"{date} {time} Checking {server}")
             cfg = urllib.request.urlopen(url)
 
