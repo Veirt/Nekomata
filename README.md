@@ -1,7 +1,5 @@
 # Nekomata
 
-This bot is inspired by Vahr's Divinitor Stargazer
-
 ## Requirements
 
 - Python 3.9
