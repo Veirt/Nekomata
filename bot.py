@@ -1,5 +1,8 @@
 # Import packages
-from lib import *
+import discord
+from discord.ext import commands, tasks
+from os import getenv
+
 intents = discord.Intents.default()
 intents.members = True
 # Virtual Environment

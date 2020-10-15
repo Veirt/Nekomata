@@ -1,11 +1,12 @@
-import discord
-from lib import *
-from bot import *
-from discord.ext import tasks
 import datetime
 # import logging
 import urllib.request
 from shutil import move
+
+import discord
+from bot import *
+from discord.ext import tasks
+from lib import *
 
 # Log Configuration
 # logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -29,7 +30,7 @@ class CheckVer(commands.Cog):
         for i in urls_and_files.values():
             url, file_name, server = i
             # logging.debug(f"Checking {server}")
-            print(f"Checking {server}")
+            print(f"{now.year}-{now.month}-{now.day} Checking {server}")
             cfg = urllib.request.urlopen(url)
 
             # Use different way to US since US has unique version.cfg
