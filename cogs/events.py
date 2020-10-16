@@ -1,5 +1,5 @@
-from bot import *
 import discord
+from bot import *
 from discord.ext import commands
 
 
@@ -14,11 +14,15 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        await self.client.get_channel(channel_id).send(f"Hey {member.mention} Welcome to **{member.guild.name}**!")
+        await self.client.get_channel(channel_id).send(
+            f"Hey {member.mention} Welcome to **{member.guild.name}**!"
+        )
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        await self.client.get_channel(channel_id).send(f"{member.name}#{member.discriminator} just left the server.")
+        await self.client.get_channel(channel_id).send(
+            f"{member.name}#{member.discriminator} just left the server."
+        )
 
 
 def setup(client):
