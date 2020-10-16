@@ -4,6 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+black = "*"
 
 [packages]
 discord-py = "*"
@@ -14,3 +15,6 @@ python_version = "3.9"
 
 [scripts]
 dev = "nodemon --exec python bot.py"
+
+[pipenv]
+allow_prereleases = true
