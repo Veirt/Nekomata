@@ -1,1 +1,1 @@
-worker: nodemon --exec python bot.py
+worker: python bot.py
