@@ -1,11 +1,16 @@
 # Import packages
-import discord
-from discord.ext import commands, tasks
 import os
+from pathlib import Path
+
+import discord
+from discord.ext import commands
+from dotenv import load_dotenv
 
 intents = discord.Intents.default()
 intents.members = True
-# Virtual Environment
+# .env Configuration
+env_path = Path('.') / '.env'
+load_dotenv(dotenv_path=env_path)
 token = os.getenv('TOKEN')
 channel_id = int(os.getenv('CHANNEL'))
 prefix = os.getenv('PREFIX')
