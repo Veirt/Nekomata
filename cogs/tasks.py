@@ -9,6 +9,7 @@ from bot import *
 from discord.ext import tasks
 from lib import *
 
+
 # Log Configuration
 # logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
 #                     datefmt='%m/%d/%Y %H:%M:%S')
@@ -19,13 +20,13 @@ class CheckVer(commands.Cog):
         self.client = client
         self.Check_Loop.start()
 
-    @tasks.loop(seconds=15.0)
+    @tasks.loop(seconds=30.0)
     # Testing : seconds=15.0
     # Run : hours=1.0
     async def Check_Loop(self):
         global newVer
         message_channel = self.client.get_channel(channel_id)
-
+        remove_nl = lambda text: text.replace("\n", "")
         for i in urls_and_files.values():
             url, file_name, server = i
             # logging.debug(f"Checking {server}")
@@ -40,12 +41,12 @@ class CheckVer(commands.Cog):
                 urllib.request.urlretrieve(url, file_name)
                 with open(file_name) as f:
                     newVer = f.readline()
-                    newVer = newVer.replace("\n", "")
+                    newVer = remove_nl(newVer)
                     f.close()
 
                 with open(f"latest/{file_name}") as f:
                     latestVer = f.readline()
-                    latestVer = latestVer.replace("\n", "")
+                    latestVer = remove_nl(latestVer)
                     f.close()
 
                 if newVer != latestVer:
@@ -68,7 +69,7 @@ class CheckVer(commands.Cog):
                 with open(f"latest/{file_name}", "r") as f:
                     latestVer = f.readline()
                     latestVer = "".join(latestVer)
-                    latestVer = latestVer.replace("\n", "")
+                    latestVer = remove_nl(latestVer)
                     f.close()
 
                 if newVer != latestVer:

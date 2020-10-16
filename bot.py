@@ -1,14 +1,14 @@
 # Import packages
 import discord
 from discord.ext import commands, tasks
-from os import getenv
+import os
 
 intents = discord.Intents.default()
 intents.members = True
 # Virtual Environment
-token = getenv('TOKEN')
-channel_id = int(getenv('CHANNEL'))
-prefix = getenv('PREFIX')
+token = os.getenv('TOKEN')
+channel_id = int(os.getenv('CHANNEL'))
+prefix = os.getenv('PREFIX')
 
 # Prefix
 client = commands.Bot(prefix, intents=intents)
