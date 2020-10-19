@@ -1,4 +1,3 @@
-import discord
 from bot import *
 from discord.ext import commands
 

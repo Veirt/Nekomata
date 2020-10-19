@@ -1,14 +1,10 @@
 import datetime
-import os
-
 # import logging
 import urllib.request
 from shutil import move
 
-import discord
-
 from bot import *
-from discord.ext import tasks
+from discord.ext import commands, tasks
 from lib import *
 
 # Log Configuration
@@ -25,15 +21,20 @@ class CheckVer(commands.Cog):
     # Testing : seconds=15.0
     # Run : hours=1.0
     async def Check_Loop(self):
-        global newVer
+        def get_time():
+            """
+            Get date and time now
+            :return: date and time now
+            """
+            return datetime.date.today(), datetime.datetime.now().time()
+        
         message_channel = self.client.get_channel(channel_id)
         remove_nl = lambda text: text.replace("\n", "")
         for i in urls_and_files.values():
             url, file_name, server = i
             # logging.debug(f"Checking {server}")
             # Get Time Now
-            date = datetime.date.today()
-            time = datetime.datetime.now().time()
+            date, time = get_time()
             print(f"{date} {time} Checking {server}")
             cfg = urllib.request.urlopen(url)
 
