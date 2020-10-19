@@ -45,12 +45,10 @@ class CheckVer(commands.Cog):
                 with open(file_name) as f:
                     newVer = f.readline()
                     newVer = remove_nl(newVer)
-                    f.close()
 
                 with open(f"latest/{file_name}") as f:
                     latestVer = f.readline()
                     latestVer = remove_nl(latestVer)
-                    f.close()
 
                 if newVer != latestVer:
                     print("There is an update")
@@ -75,7 +73,6 @@ class CheckVer(commands.Cog):
                     latestVer = f.readline()
                     latestVer = "".join(latestVer)
                     latestVer = remove_nl(latestVer)
-                    f.close()
 
                 if newVer != latestVer:
                     urllib.request.urlretrieve(url, file_name)
