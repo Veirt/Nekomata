@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2286096d40720810461c513a4dadd52cd72127d3
 from discord.ext import commands
 
 
