@@ -1,4 +1,5 @@
 import datetime
+
 # import logging
 import urllib.request
 from shutil import move
@@ -27,7 +28,7 @@ class CheckVer(commands.Cog):
             :return: date and time now
             """
             return datetime.date.today(), datetime.datetime.now().time()
-        
+
         message_channel = self.client.get_channel(channel_id)
         remove_nl = lambda text: text.replace("\n", "")
         for i in urls_and_files.values():
