@@ -1,4 +1,3 @@
-# Import Packages
 import os
 from pathlib import Path
 
@@ -19,7 +18,7 @@ prefix = os.getenv("PREFIX")
 client = commands.Bot(prefix, intents=intents)
 
 # Load Cogs
-startup_extension = ("cogs.commands", "cogs.events", "cogs.tasks")
+startup_extension = ("cogs.commands", "cogs.events")
 for ext in startup_extension:
     client.load_extension(ext)
 

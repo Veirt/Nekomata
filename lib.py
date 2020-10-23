@@ -1,9 +1,9 @@
 urls_and_files = {
-    "test": [
-        "http://127.0.0.1/Patch/PatchInfoServer.cfg",
-        "PatchInfoServer.cfg",
-        "Test",
-    ],
+    # "test": [
+    #     "http://127.0.0.1/Patch/PatchInfoServer.cfg",
+    #     "PatchInfoServer.cfg",
+    #     "Test",
+    # ],
     "sea": [
         "http://patchsea.dragonnest.com/Game/DragonNest/Patch/PatchInfoServer.cfg",
         "PatchInfoServer_SEA.cfg",

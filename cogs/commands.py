@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 
 
@@ -16,8 +17,31 @@ class Commands(commands.Cog):
         f.close()
 
     @commands.command()
-    async def who(self, ctx):
-        await ctx.send("You are {}".format(ctx.message.author))
+    async def manualp(self, ctx, version):
+        available = False
+        if len(version) == 1:
+            available = True
+            version = f"00{version}"
+        elif len(version) == 2:
+            available = True
+            version = f"0{version}"
+        elif len(version) == 3:
+            available = True
+            version = f"{version}"
+        if available:
+            embed = discord.Embed(
+                title=f"Manual Patch {version}",
+                description=f"http://127.0.0.1/Patch/00000{version}/Patch00000{version}.pak",
+                colour=discord.Colour(0xE5D1ED),
+            )
+            await ctx.send(embed=embed)
+        else:
+            await ctx.send("The version is not available.")
+
+    @manualp.error
+    async def manual(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("Please specify the manual patch version.")
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)

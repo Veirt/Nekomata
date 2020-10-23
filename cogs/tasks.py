@@ -1,5 +1,4 @@
 import datetime
-
 # import logging
 import urllib.request
 from shutil import move
@@ -65,10 +64,11 @@ class CheckVer(commands.Cog):
                     os.remove(file_name)
 
             else:
+                newVer = ""
                 for x in cfg:
                     newVer = x.decode("utf-8").split()
                     newVer = " ".join(newVer)
-
+                # Defining latestVer
                 with open(f"latest/{file_name}", "r") as f:
                     latestVer = f.readline()
                     latestVer = "".join(latestVer)
@@ -86,8 +86,6 @@ class CheckVer(commands.Cog):
                     embed.set_footer(text=date)
                     await message_channel.send(embed=embed)
                     move(f"{file_name}", f"latest/{file_name}")
-
-                cfg.close()
 
     @Check_Loop.before_loop
     async def before(self):
