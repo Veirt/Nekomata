@@ -28,11 +28,8 @@ class CheckVer(commands.Cog):
             print(f"{date} {time} Checking {server}")
 
             # Defining newVer
-            try:
-                with urllib.request.urlopen(url) as cfg:
-                    newVer = re.search(rb"^[vV]ersion\s[0-9]*", cfg.read()).group(0).decode("utf-8")
-            except AttributeError:
-                pass
+            with urllib.request.urlopen(url) as cfg:
+                newVer = re.search(rb"^[vV]ersion\s[0-9]*", cfg.read()).group(0).decode("utf-8")
 
             # Defining latestVer
             with open(f"latest/{file_name}", "r") as f:
