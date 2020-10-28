@@ -1,12 +1,12 @@
-import discord
-import re
 import datetime
+import re
 import urllib.request
 from shutil import move
 
 import bot
-from discord.ext import commands, tasks
+import discord
 import lib
+from discord.ext import commands, tasks
 
 
 class CheckVer(commands.Cog):
