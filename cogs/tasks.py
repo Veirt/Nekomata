@@ -25,17 +25,14 @@ class CheckVer(commands.Cog):
             # Get Time Now
             date, time = get_time()
             print(f"{date} {time} Checking {server}")
-            cfg = urllib.request.urlopen(url)
 
             # Defining newVer
-            newVer = re.search(b"^[vV]ersion\s[0-9]*", cfg.read()).group(0).decode("utf-8")
+            with urllib.request.urlopen(url) as cfg:
+                newVer = re.search(b"^[vV]ersion\s[0-9]*", cfg.read()).group(0).decode("utf-8")
 
             # Defining latestVer
             with open(f"latest/{file_name}", "r") as f:
-                for line in f:
-                    line = line.rstrip()
-                    if re.search("^[vV]ersion", line):
-                        latestVer = line
+                latestVer = re.search("^[vV]ersion\s[0-9]*", f.read()).group(0)
 
             if newVer != latestVer:
                 urllib.request.urlretrieve(url, file_name)
