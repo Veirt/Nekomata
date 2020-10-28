@@ -1,11 +1,12 @@
+import discord
 import re
 import datetime
 import urllib.request
 from shutil import move
 
-from bot import *
+import bot
 from discord.ext import commands, tasks
-from lib import *
+import lib
 
 
 class CheckVer(commands.Cog):
@@ -18,8 +19,8 @@ class CheckVer(commands.Cog):
         def get_time():
             return datetime.date.today(), datetime.datetime.now().time()
 
-        message_channel = self.client.get_channel(channel_id)
-        for i in urls_and_files.values():
+        message_channel = self.client.get_channel(bot.channel_id)
+        for i in lib.urls_and_files.values():
             url, file_name, server = i
 
             # Get Time Now
@@ -27,12 +28,15 @@ class CheckVer(commands.Cog):
             print(f"{date} {time} Checking {server}")
 
             # Defining newVer
-            with urllib.request.urlopen(url) as cfg:
-                newVer = re.search(b"^[vV]ersion\s[0-9]*", cfg.read()).group(0).decode("utf-8")
+            try:
+                with urllib.request.urlopen(url) as cfg:
+                    newVer = re.search(rb"^[vV]ersion\s[0-9]*", cfg.read()).group(0).decode("utf-8")
+            except ValueError:
+                pass
 
             # Defining latestVer
             with open(f"latest/{file_name}", "r") as f:
-                latestVer = re.search("^[vV]ersion\s[0-9]*", f.read()).group(0)
+                latestVer = re.search(r"^[vV]ersion\s[0-9]*", f.read()).group(0)
 
             if newVer != latestVer:
                 urllib.request.urlretrieve(url, file_name)
