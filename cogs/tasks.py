@@ -31,7 +31,7 @@ class CheckVer(commands.Cog):
             try:
                 with urllib.request.urlopen(url) as cfg:
                     newVer = re.search(rb"^[vV]ersion\s[0-9]*", cfg.read()).group(0).decode("utf-8")
-            except ValueError:
+            except AttributeError:
                 pass
 
             # Defining latestVer
