@@ -18,7 +18,7 @@ prefix = os.getenv("PREFIX")
 client = commands.Bot(prefix, intents=intents)
 
 # Load Cogs
-startup_extension = ("cogs.commands", "cogs.events")
+startup_extension = ("cogs.commands", "cogs.events", "cogs.tasks")
 for ext in startup_extension:
     client.load_extension(ext)
 
