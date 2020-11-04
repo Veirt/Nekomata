@@ -29,11 +29,11 @@ class CheckVer(commands.Cog):
 
             # Defining newVer
             with urllib.request.urlopen(url) as cfg:
-                newVer = re.search(rb"^[vV]ersion\s[0-9]*", cfg.read()).group(0).decode("utf-8")
+                newVer = re.search(rb"^(?i)Version\s[0-9]*", cfg.read()).group(0).decode("utf-8")
 
             # Defining latestVer
             with open(f"latest/{file_name}", "r") as f:
-                latestVer = re.search(r"^[vV]ersion\s[0-9]*", f.read()).group(0)
+                latestVer = re.search(r"^(?i)Version\s[0-9]*", f.read()).group(0)
 
             if newVer != latestVer:
                 urllib.request.urlretrieve(url, file_name)
