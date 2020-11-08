@@ -20,16 +20,21 @@ class CheckVer(commands.Cog):
             return datetime.date.today(), datetime.datetime.now().time()
 
         message_channel = self.client.get_channel(bot.channel_id)
-        for i in lib.urls_and_files.values():
-            url, file_name, server = i
+        for item in lib.urls_and_files.values():
+            url, file_name, server = item
 
             # Get Time Now
             date, time = get_time()
             print(f"{date} {time} Checking {server}")
 
             # Defining newVer
-            with urllib.request.urlopen(url) as cfg:
-                newVer = re.search(rb"^(?i)Version\s[0-9]*", cfg.read()).group(0).decode("utf-8")
+            while True:
+                try:
+                    with urllib.request.urlopen(url) as cfg:
+                        newVer = re.search(rb"^(?i)Version\s[0-9]*", cfg.read()).group(0).decode("utf-8")
+                        break
+                except AttributeError:
+                    print("Can't access.")
 
             # Defining latestVer
             with open(f"latest/{file_name}", "r") as f:
