@@ -2,7 +2,7 @@
 
 ## Production Requirements
 
-- Python 3.9
+- Python 3.8.6
 - Pipenv
 
 ## Additional Development Requirements

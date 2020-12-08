@@ -1,21 +1,17 @@
 [[source]]
-name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
-
-[dev-packages]
-black = "*"
+name = "pypi"
 
 [packages]
 discord-py = "*"
 python-dotenv = "*"
 
+[dev-packages]
+
 [requires]
-python_version = "3.9"
+python_version = "3.8"
 
 [scripts]
 dev = "nodemon --exec python bot.py"
 prod = "python bot.py"
-
-[pipenv]
-allow_prereleases = true
