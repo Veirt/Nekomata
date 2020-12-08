@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 
 intents = discord.Intents.default()
 intents.members = True
+
 # .env Configuration
 env_path = Path(".") / ".env"
 load_dotenv(dotenv_path=env_path)
