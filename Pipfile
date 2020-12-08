@@ -15,6 +15,7 @@ python_version = "3.9"
 
 [scripts]
 dev = "nodemon --exec python bot.py"
+prod = "python bot.py"
 
 [pipenv]
 allow_prereleases = true
