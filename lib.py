@@ -24,4 +24,9 @@ urls_and_files = {
         "PatchInfoServer_JP.cfg",
         "Japan",
     ],
+    "sdo": [
+        "https://lzg.jijiagames.com/dn/patchinfo/Public/PatchInfoServer.cfg",
+        "PatchInfoServer_SDO.cfg",
+        "SDO",
+    ]
 }
