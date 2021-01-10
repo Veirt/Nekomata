@@ -27,16 +27,25 @@ class CheckVer(commands.Cog):
             date, time = get_time()
             print(f"{date} {time} Checking {server}")
 
+            # Defining latestVer
+            try:
+                with open(f"latest/{file_name}", "r") as f:
+                    latestVer = re.search(r"^(?i)Version\s[0-9]*", f.read()).group(0)
+            except (IOError, FileNotFoundError, AttributeError):
+                urllib.request.urlretrieve(url, file_name)
+                move(f"{file_name}", f"latest/{file_name}")
+                with open(f"latest/{file_name}", "r") as f:
+                    latestVer = re.search(r"^(?i)Version\s[0-9]*", f.read()).group(0)
+
             # Defining newVer
             try:
                 with urllib.request.urlopen(url) as cfg:
                     newVer = re.search(rb"^(?i)Version\s[0-9]*", cfg.read()).group(0).decode("utf-8")
             except AttributeError:
-                print("Can't access.")
+                print(f"Can't access {server}")
+                with open(f"latest/{file_name}", "r") as f:
+                    newVer = re.search(r"^(?i)Version\s[0-9]*", f.read()).group(0)
 
-            # Defining latestVer
-            with open(f"latest/{file_name}", "r") as f:
-                latestVer = re.search(r"^(?i)Version\s[0-9]*", f.read()).group(0)
 
             if newVer != latestVer:
                 urllib.request.urlretrieve(url, file_name)
