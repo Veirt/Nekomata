@@ -4,13 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-discord-py = "*"
+"discord.py" = "*"
 python-dotenv = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
+
 
 [scripts]
 dev = "nodemon --exec python bot.py"
