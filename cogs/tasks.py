@@ -14,7 +14,7 @@ class CheckVer(commands.Cog):
         self.client = client
         self.Check_Loop.start()
 
-    @tasks.loop(seconds=30.0)
+    @tasks.loop(seconds=60.0)
     async def Check_Loop(self):
         def get_time():
             return datetime.date.today(), datetime.datetime.now().time()
@@ -41,11 +41,12 @@ class CheckVer(commands.Cog):
             try:
                 with urllib.request.urlopen(url) as cfg:
                     newVer = re.search(rb"^(?i)Version\s[0-9]*", cfg.read()).group(0).decode("utf-8")
+                    print(f"{server} {newVer}")
             except AttributeError:
-                print(f"Can't access {server}")
+                urllib.request.urlretrieve(url, file_name)
+                move(f"{file_name}", f"latest/{file_name}")
                 with open(f"latest/{file_name}", "r") as f:
                     newVer = re.search(r"^(?i)Version\s[0-9]*", f.read()).group(0)
-
 
             if newVer != latestVer:
                 urllib.request.urlretrieve(url, file_name)
