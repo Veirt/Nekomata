@@ -1,10 +1,5 @@
-.idea/
-.env
-__pycache__/
-GUI.py
-latest/PatchInfoServer.cfg
-.vscode/
 node_modules
-
-# Test
-test.py
+dist
+*.log
+.env
+*.sqlite
