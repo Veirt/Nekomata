@@ -20,7 +20,7 @@ export default (client: Discord.Client, channels: Channel[]) => {
 
 
       if (prev?.version !== nextVersion) {
-        if (prev!.version) {
+        if (prev?.version) {
           channels.forEach((channel) => {
             (client.channels.cache.get(channel.channel) as Discord.TextChannel).send(`${prev?.version} to ${nextVersion}`)
           })
