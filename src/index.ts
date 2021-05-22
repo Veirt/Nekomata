@@ -1,9 +1,9 @@
 import "reflect-metadata"
-import "./config"
-import config from "./config/typeorm"
+import "@config/index"
+import config from "@config/typeorm"
+import Channel from "@entity/Channel"
+import checkVersion from "@helpers/checkVersion"
 import setup from "./commands/setup"
-import Channel from "./entity/Channel"
-import checkVersion from "./helpers/checkVersion"
 import Discord from "discord.js"
 import { createConnection, getRepository } from "typeorm"
 

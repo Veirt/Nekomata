@@ -1,5 +1,5 @@
-import Channel from "../entity/Channel"
-import addPatchInfo from "../helpers/addPatchInfo";
+import Channel from "@entity/Channel"
+import addPatchInfo from "@helpers/addPatchInfo";
 import Discord from "discord.js";
 import { getConnection } from "typeorm";
 

@@ -5,13 +5,13 @@ const config: ConnectionOptions = {
   database: "db.sqlite",
   synchronize: true,
   entities: [
-    "dist/entity/*{.ts,.js}"
+    "dist/entity/*{.ts,.js}", "src/entity/*{.ts,.js}"
   ],
   migrations: [
-    "dist/migration/*{.ts,.js}"
+    "dist/migration/*{.ts,.js}", "src/migration/*{.ts,.js}"
   ],
   subscribers: [
-    "dist/subscriber/*{.ts,.js}"
+    "dist/subscriber/*{.ts,.js}", "src/subscriber/*{.ts,.js}"
   ],
   cli: {
     entitiesDir: "src/entity",
