@@ -1,0 +1,23 @@
+{
+	"name": "nekomata",
+	"version": "1.0.0",
+	"description": "A discord bot to monitor version of Dragon Nest",
+	"main": "dist/index",
+	"scripts": {
+		"start": "node ./dist/index",
+		"dev": "tsc-watch --onSuccess \"node ./dist/index.js\""
+	},
+	"repository": "https://github.com/ExLog/Nekomata.git",
+	"author": "ExLog <55097092+ExLog@users.noreply.github.com>",
+	"license": "MIT",
+	"private": false,
+	"dependencies": {
+		"discord.js": "^12.5.3",
+		"dotenv": "^10.0.0"
+	},
+	"devDependencies": {
+		"@types/node": "^15.6.0",
+		"tsc-watch": "^4.2.9",
+		"typescript": "^4.2.4"
+	}
+}
