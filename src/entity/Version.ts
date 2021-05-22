@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-class Channel {
+class Version {
   @PrimaryGeneratedColumn()
   id!: number
 
@@ -9,7 +9,7 @@ class Channel {
   server!: string
 
   @Column({ nullable: false })
-  channel!: string
+  version!: number
 }
 
-export default Channel
+export default Version
