@@ -1,15 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm"
 
 @Entity()
 class Version {
-  @PrimaryGeneratedColumn()
-  id!: number
+	@PrimaryGeneratedColumn()
+	id!: number
 
-  @Column({ unique: true, nullable: false })
-  server!: string
+	@Column({ unique: true, nullable: false })
+	server!: string
 
-  @Column({ nullable: false })
-  version!: number
+	@Column({ nullable: false })
+	version!: number
 }
 
 export default Version

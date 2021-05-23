@@ -1,15 +1,15 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm"
 
 @Entity()
 class Channel {
-  @PrimaryGeneratedColumn()
-  id!: number
+	@PrimaryGeneratedColumn()
+	id!: number
 
-  @Column({ unique: true, nullable: false })
-  server!: string
+	@Column({ unique: true, nullable: false })
+	server!: string
 
-  @Column({ nullable: false })
-  channel!: string
+	@Column({ nullable: false })
+	channel!: string
 }
 
 export default Channel
