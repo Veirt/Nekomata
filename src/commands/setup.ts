@@ -1,5 +1,5 @@
 import Channel from "@entity/Channel"
-import addPatchInfo from "@helpers/addPatchInfo"
+import { addPatchInfo, removePatchInfo } from "@helpers/patchInfo"
 import Discord from "discord.js"
 import { getConnection } from "typeorm"
 
@@ -52,6 +52,24 @@ export default (client: Discord.Client, prefix: string): void => {
 				} catch (err) {
 					console.error(`Error when adding patch info: ${err}`)
 					msg.channel.send("Failed adding patch info")
+				}
+			}
+		}
+
+		if (command === "remove") {
+			const [server] = [...args]
+			if (!server || args.length !== 1) msg.channel.send("Invalid arguments")
+			else {
+				try {
+					await removePatchInfo(server)
+					msg.channel.send("Success removed patch info")
+				} catch (err) {
+					console.error(`Error when removing patch info: ${err}`)
+					if (err.name === "EntityNotFound") {
+						msg.channel.send("Patch info doesn't exist")
+					} else {
+						msg.channel.send("Failed removing patch info")
+					}
 				}
 			}
 		}
