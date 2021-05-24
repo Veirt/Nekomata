@@ -23,7 +23,7 @@ export default (client: Discord.Client, prefix: string) => {
 			}
 		}
 
-		if (msg.content === prefix + "remove") {
+		if (msg.content === prefix + "uninit") {
 			try {
 				await getConnection()
 					.getRepository(Channel)
