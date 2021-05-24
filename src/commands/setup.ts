@@ -1,6 +1,10 @@
 import Channel from "@entity/Channel"
 import embed from "helpers/embed"
-import { addPatchInfo, removePatchInfo } from "@helpers/patchInfo"
+import {
+	addPatchInfo,
+	findPatchInfo,
+	removePatchInfo,
+} from "@helpers/patchInfo"
 import Discord from "discord.js"
 import { getConnection } from "typeorm"
 
@@ -57,6 +61,23 @@ export default (client: Discord.Client, prefix: string): void => {
 					"Please initialize the channel first"
 				)
 				if (err.name === "EntityNotFound") msg.channel.send(uninitFailedEmbed)
+			}
+		}
+
+		if (command === "list") {
+			try {
+				const patchInfoEmbed = embed("Version List")
+
+				const patchInfos = await findPatchInfo()
+				patchInfos.forEach(patchInfo =>
+					patchInfoEmbed.addField(
+						patchInfo.server,
+						`Version **${patchInfo.version}**\n${patchInfo.url}`
+					)
+				)
+				msg.channel.send(patchInfoEmbed)
+			} catch (err) {
+				console.error(`Error when finding patch info ${err}`)
 			}
 		}
 

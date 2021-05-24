@@ -23,3 +23,14 @@ export const removePatchInfo = (server: string): Promise<any> => {
 		}
 	})
 }
+
+export const findPatchInfo = (): Promise<Version[]> => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const patchInfos = await getConnection().getRepository(Version).find()
+			resolve(patchInfos)
+		} catch (err) {
+			reject(err)
+		}
+	})
+}
