@@ -15,9 +15,11 @@ createConnection(config).then(() => {
 	client.on("ready", async () => {
 		console.log(`Logged in as ${(client.user as Discord.ClientUser).tag}!`)
 		setInterval(async () => {
-			const channels = await getRepository(Channel).find()
-			checkVersion(client, channels)
-		}, 10000)
+			const [channels, channelsCount] = await getRepository(
+				Channel
+			).findAndCount()
+			checkVersion(client, channels, channelsCount)
+		}, 30000)
 	})
 
 	setup(client, prefix)

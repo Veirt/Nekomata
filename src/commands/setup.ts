@@ -1,4 +1,5 @@
 import Channel from "@entity/Channel"
+import embed from "helpers/embed"
 import { addPatchInfo, removePatchInfo } from "@helpers/patchInfo"
 import Discord from "discord.js"
 import { getConnection } from "typeorm"
@@ -15,14 +16,23 @@ export default (client: Discord.Client, prefix: string): void => {
 				await getConnection()
 					.getRepository(Channel)
 					.save({ server: msg.guild!.id, channel: msg.channel.id })
-				msg.channel.send("Initialize")
+
+				const initEmbed = embed(
+					"Initialize",
+					"Initialize update notice in this channel"
+				)
+				msg.channel.send(initEmbed)
 			} catch (err) {
 				if (err.name === "QueryFailedError")
 					await getConnection()
 						.getRepository(Channel)
 						.update({ server: msg.guild!.id }, { channel: msg.channel.id })
 
-				msg.channel.send("Reinitialize")
+				const reinitEmbed = embed(
+					"Reinitialize",
+					"Reinitialize update notice on this channel"
+				)
+				msg.channel.send(reinitEmbed)
 			}
 		}
 
@@ -35,9 +45,18 @@ export default (client: Discord.Client, prefix: string): void => {
 				await getConnection()
 					.getRepository(Channel)
 					.delete({ server: msg.guild!.id })
-				msg.channel.send("Uninitialized")
+
+				const uninitEmbed = embed(
+					"Uninitialized",
+					"Uninitialized update notice in this channel"
+				)
+				msg.channel.send(uninitEmbed)
 			} catch (err) {
-				if (err.name === "EntityNotFound") msg.channel.send("Not initialized")
+				const uninitFailedEmbed = embed(
+					"Not Initialized",
+					"Please initialize the channel first"
+				)
+				if (err.name === "EntityNotFound") msg.channel.send(uninitFailedEmbed)
 			}
 		}
 
@@ -48,10 +67,18 @@ export default (client: Discord.Client, prefix: string): void => {
 			else {
 				try {
 					await addPatchInfo(server, url)
-					msg.channel.send("Success added patch info")
+					const addPatchEmbed = embed(
+						"Patch Info",
+						`Success added patch info for server ${server}`
+					)
+					msg.channel.send(addPatchEmbed)
 				} catch (err) {
 					console.error(`Error when adding patch info: ${err}`)
-					msg.channel.send("Failed adding patch info")
+					const addPatchFailedEmbed = embed(
+						"Patch Info",
+						`Failed adding patch info`
+					)
+					msg.channel.send(addPatchFailedEmbed)
 				}
 			}
 		}
@@ -62,13 +89,25 @@ export default (client: Discord.Client, prefix: string): void => {
 			else {
 				try {
 					await removePatchInfo(server)
-					msg.channel.send("Success removed patch info")
+					const removePatchEmbed = embed(
+						"Patch Info",
+						`Success removed patch info`
+					)
+					msg.channel.send(removePatchEmbed)
 				} catch (err) {
 					console.error(`Error when removing patch info: ${err}`)
 					if (err.name === "EntityNotFound") {
-						msg.channel.send("Patch info doesn't exist")
+						const removeFailedEmbed = embed(
+							"Patch Info",
+							"Patch info doesn't exist"
+						)
+						msg.channel.send(removeFailedEmbed)
 					} else {
-						msg.channel.send("Failed removing patch info")
+						const removeFailedEmbed = embed(
+							"Patch Info",
+							"Failed removing patch info"
+						)
+						msg.channel.send(removeFailedEmbed)
 					}
 				}
 			}
