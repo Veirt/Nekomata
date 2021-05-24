@@ -1,5 +1,5 @@
 import Channel from "@entity/Channel"
-import embed from "helpers/embed"
+import embed from "../helpers/embed"
 import {
 	addPatchInfo,
 	findPatchInfo,
