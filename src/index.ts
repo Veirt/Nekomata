@@ -17,7 +17,7 @@ createConnection(config).then(() => {
 		setInterval(async () => {
 			const channels = await getRepository(Channel).find()
 			checkVersion(client, channels)
-		}, 30000)
+		}, 10000)
 	})
 
 	setup(client, prefix)

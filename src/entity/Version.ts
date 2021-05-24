@@ -8,8 +8,11 @@ class Version {
 	@Column({ unique: true, nullable: false })
 	server!: string
 
-	@Column({ nullable: false })
+	@Column({ nullable: true })
 	version!: number
+
+	@Column({ nullable: false })
+	url!: string
 }
 
 export default Version

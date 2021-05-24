@@ -1,18 +1,6 @@
-import path from "path"
-import fs from "fs"
+import Version from "@entity/Version"
+import { getConnection } from "typeorm"
 
-export default (server: string, url: string) => {
-	fs.readFile(path.join(__dirname, "../../PatchInfo.json"), (err, data) => {
-		if (err) throw err
-		const patchInfos: Array<PatchURL> = JSON.parse(data.toString())
-		patchInfos.push({ server, url })
-
-		fs.writeFile(
-			path.join(__dirname, "../../PatchInfo.json"),
-			JSON.stringify(patchInfos),
-			err => {
-				if (err) throw err
-			}
-		)
-	})
+export default async (server: string, url: string) => {
+	await getConnection().getRepository(Version).save({ server, url })
 }
