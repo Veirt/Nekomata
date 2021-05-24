@@ -5,9 +5,12 @@ import { getConnection } from "typeorm"
 
 export default (client: Discord.Client, prefix: string): void => {
 	client.on("message", async msg => {
-		if (msg.channel.type === "dm") return
+		if (msg.channel.type === "dm" || !msg.content.startsWith(prefix)) return
 
-		if (msg.content === prefix + "init") {
+		const args = msg.content.slice(prefix.length).trim().split(" ")
+		const command = args.shift()
+
+		if (command === "init") {
 			try {
 				await getConnection()
 					.getRepository(Channel)
@@ -23,7 +26,7 @@ export default (client: Discord.Client, prefix: string): void => {
 			}
 		}
 
-		if (msg.content === prefix + "uninit") {
+		if (command === "uninit") {
 			try {
 				await getConnection()
 					.getRepository(Channel)
@@ -38,15 +41,18 @@ export default (client: Discord.Client, prefix: string): void => {
 			}
 		}
 
-		const message = msg.content.split(" ")
-		const command = message[1]
-
 		if (command === "add") {
-			const [server, url] = [message[2], message[3]]
-			if (!server || !url) msg.channel.send("Invalid arguments")
+			const [server, url] = [...args]
+			if (!server || !url || args.length !== 2)
+				msg.channel.send("Invalid arguments")
 			else {
-				addPatchInfo(server, url)
-				msg.channel.send("Success added patch info")
+				try {
+					await addPatchInfo(server, url)
+					msg.channel.send("Success added patch info")
+				} catch (err) {
+					console.error(`Error when adding patch info: ${err}`)
+					msg.channel.send("Failed adding patch info")
+				}
 			}
 		}
 	})
