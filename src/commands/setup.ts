@@ -3,7 +3,7 @@ import addPatchInfo from "@helpers/addPatchInfo"
 import Discord from "discord.js"
 import { getConnection } from "typeorm"
 
-export default (client: Discord.Client, prefix: string) => {
+export default (client: Discord.Client, prefix: string): void => {
 	client.on("message", async msg => {
 		if (msg.channel.type === "dm") return
 
