@@ -8,21 +8,21 @@ import Discord from "discord.js"
 import { createConnection, getRepository } from "typeorm"
 
 createConnection(config).then(() => {
-	const client = new Discord.Client()
+  const client = new Discord.Client()
 
-	const prefix = process.env.PREFIX as string
+  const prefix = process.env.PREFIX as string
 
-	client.on("ready", async () => {
-		console.log(`Logged in as ${(client.user as Discord.ClientUser).tag}!`)
-		setInterval(async () => {
-			const [channels, channelsCount] = await getRepository(
-				Channel
-			).findAndCount()
-			checkVersion(client, channels, channelsCount)
-		}, 30000)
-	})
+  client.on("ready", async () => {
+    console.log(`Logged in as ${(client.user as Discord.ClientUser).tag}!`)
+    setInterval(async () => {
+      const [channels, channelsCount] = await getRepository(
+        Channel
+      ).findAndCount()
+      checkVersion(client, channels, channelsCount)
+    }, 30000)
+  })
 
-	setup(client, prefix)
+  setup(client, prefix)
 
-	client.login(process.env.TOKEN)
+  client.login(process.env.TOKEN)
 })
